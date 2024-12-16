@@ -4,6 +4,7 @@ import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
 import com.demo.URL.Shortener.utils.ShortCodeGeneratorUtil;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@DynamicUpdate
 public class ShortnerUrlEntity {
 
     @Id
@@ -27,12 +27,15 @@ public class ShortnerUrlEntity {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    private Integer accessCount;
+
     public static ShortnerUrlEntity of(ShortnerUrlDto shortnerUrlDto) {
         return ShortnerUrlEntity.builder()
                 .url(shortnerUrlDto.getUrl())
                 .shortCode(ShortCodeGeneratorUtil.generate())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
+                .accessCount(0)
                 .build();
     }
 
