@@ -23,7 +23,16 @@ public class ShortnerServiceImpl implements ShortnerService {
 
     @Override
     public ShortnerUrlEntity findUrl(String shortCode) {
-        return repository.findByShortCode(shortCode);
+        ShortnerUrlEntity shortnerUrlEntity = repository.findByShortCode(shortCode);
+
+        if(shortnerUrlEntity == null) {
+            return null;
+        }
+
+
+        shortnerUrlEntity.incrementAccessCount();
+        repository.save(shortnerUrlEntity);
+        return shortnerUrlEntity;
     }
 
     @Override

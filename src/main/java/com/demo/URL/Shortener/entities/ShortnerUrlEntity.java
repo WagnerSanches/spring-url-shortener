@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Builder
 @DynamicUpdate
@@ -18,7 +20,7 @@ public class ShortnerUrlEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long task_id;
+    private Long shortnerUrlId;
     private String url;
 
     @Column(unique = true)
@@ -42,6 +44,10 @@ public class ShortnerUrlEntity {
     public void updateUrl(String url) {
         this.url = url;
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void incrementAccessCount() {
+        this.accessCount++;
     }
 
 }
