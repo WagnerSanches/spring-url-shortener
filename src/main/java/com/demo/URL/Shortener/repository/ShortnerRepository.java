@@ -10,8 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShortnerRepository extends JpaRepository<ShortnerUrlEntity, Long> {
     ShortnerUrlEntity findByShortCode(String shortCode);
-
-//    @Modifying
-//    @Query("update ShortnerUrlEntity s set s.accessCount = :count where s.shortCode = :shortCode")
-//    void incrementAccessCount(@Param("shortCode") String shortCode, @Param("count") int count);
 }
