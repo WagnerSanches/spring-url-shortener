@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShortnerServiceImpl implements ShortnerService {
@@ -22,16 +23,14 @@ public class ShortnerServiceImpl implements ShortnerService {
     }
 
     @Override
-    public ShortnerUrlEntity findUrl(String shortCode) {
-        ShortnerUrlEntity shortnerUrlEntity = repository.findByShortCode(shortCode);
+    public Optional<ShortnerUrlEntity> findUrl(String shortCode) {
+        Optional<ShortnerUrlEntity> shortnerUrlEntity = Optional.ofNullable(repository.findByShortCode(shortCode));
 
-        if(shortnerUrlEntity == null) {
-            return null;
-        }
+        shortnerUrlEntity.ifPresent(shortner -> {
+            shortner.incrementAccessCount();
+            repository.save(shortner);
+        });
 
-
-        shortnerUrlEntity.incrementAccessCount();
-        repository.save(shortnerUrlEntity);
         return shortnerUrlEntity;
     }
 
@@ -41,28 +40,26 @@ public class ShortnerServiceImpl implements ShortnerService {
     }
 
     @Override
-    public ShortnerUrlEntity changeUrl(String shortCode, String url) {
-        ShortnerUrlEntity shortnerUrlEntity = this.findUrl(shortCode); // optional
+    public Optional<ShortnerUrlEntity> changeUrl(String shortCode, String url) {
+        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.findUrl(shortCode); // optional
 
-        if(shortnerUrlEntity == null) {
-            return null;
-        }
+        shortnerUrlEntity.ifPresent(shortner -> {
+            shortner.updateUrl(url);
+            repository.save(shortner);
+        });
 
-        shortnerUrlEntity.updateUrl(url);
-        return repository.save(shortnerUrlEntity);
+        return shortnerUrlEntity;
     }
 
     @Override
     public boolean deleteUrl(String shortCode) {
-        ShortnerUrlEntity shortnerUrlEntity = this.findUrl(shortCode); // optional
+        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.findUrl(shortCode); // optional
 
-        if(shortnerUrlEntity == null) {
-            return false;
-        }
+        shortnerUrlEntity.ifPresent(shortner -> {
+            repository.delete(shortner);
+        });
 
-        repository.delete(shortnerUrlEntity);
-
-        return true;
+        return shortnerUrlEntity.isPresent();
     }
 
 }

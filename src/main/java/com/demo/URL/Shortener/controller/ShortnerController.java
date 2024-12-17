@@ -13,7 +13,7 @@ import java.util.List;
 
 // seguranca (handler)
 // docker compose
-// optional
+// optional - checked
 
 @RestController
 @RequestMapping("url-shortner")
@@ -38,7 +38,9 @@ public class ShortnerController {
 
     @GetMapping("{shortCode}")
     public ResponseEntity<ShortnerUrlEntity> findUrl(@PathVariable String shortCode) {
-        return ResponseEntity.ok(service.findUrl(shortCode));
+        return service.findUrl(shortCode)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PatchMapping("{shortCode}")
@@ -46,7 +48,9 @@ public class ShortnerController {
             @PathVariable String shortCode,
             @RequestBody ShortnerUrlDto shortnerUrlDto) {
 
-        return ResponseEntity.ok(service.changeUrl(shortCode, shortnerUrlDto.getUrl()));
+        return service.changeUrl(shortCode, shortnerUrlDto.getUrl())
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{shortCode}")
