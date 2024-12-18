@@ -11,9 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+// junit
 // seguranca (handler)
 // docker compose
-// optional - checked
 
 @RestController
 @RequestMapping("url-shortner")
