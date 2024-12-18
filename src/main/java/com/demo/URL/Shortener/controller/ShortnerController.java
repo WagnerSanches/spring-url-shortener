@@ -2,6 +2,7 @@ package com.demo.URL.Shortener.controller;
 
 import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
 import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.exceptions.URLNotFoundException;
 import com.demo.URL.Shortener.service.ShortnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class ShortnerController {
     public ResponseEntity<ShortnerUrlEntity> findUrl(@PathVariable String shortCode) {
         return service.findUrl(shortCode)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(URLNotFoundException::new);
     }
 
     @PatchMapping("{shortCode}")
@@ -50,16 +51,16 @@ public class ShortnerController {
 
         return service.changeUrl(shortCode, shortnerUrlDto.getUrl())
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(URLNotFoundException::new);
     }
 
     @DeleteMapping("{shortCode}")
     public ResponseEntity<String> deleteUrl(@PathVariable String shortCode) {
-        if(service.deleteUrl(shortCode)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+
+        if(!service.deleteUrl(shortCode))
+            throw new URLNotFoundException();
+
+        return ResponseEntity.noContent().build();
     }
 
 }
