@@ -4,6 +4,8 @@ import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
 import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
 import com.demo.URL.Shortener.repository.ShortnerRepository;
 import com.demo.URL.Shortener.service.ShortnerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,14 @@ import java.util.Optional;
 @Service
 public class ShortnerServiceImpl implements ShortnerService {
 
+    Logger logger = LoggerFactory.getLogger(ShortnerServiceImpl.class);
+
     @Autowired
     private ShortnerRepository repository;
 
     @Override
     public List<ShortnerUrlEntity> getUrls() {
+        logger.info("Getting all URL");
         return repository.findAll();
     }
 
@@ -31,11 +36,13 @@ public class ShortnerServiceImpl implements ShortnerService {
             repository.save(shortner);
         });
 
+        logger.info("Getting the URL ShortCode: {}", shortCode);
         return shortnerUrlEntity;
     }
 
     @Override
     public ShortnerUrlEntity createUrl(ShortnerUrlDto shortnerUrlDto) {
+        logger.info("Saving a new URL ShortCode");
         return repository.save(ShortnerUrlEntity.of(shortnerUrlDto));
     }
 
@@ -48,6 +55,7 @@ public class ShortnerServiceImpl implements ShortnerService {
             repository.save(shortner);
         });
 
+        logger.info("Altering the URL ShortCode: {}", shortCode);
         return shortnerUrlEntity;
     }
 
@@ -59,6 +67,7 @@ public class ShortnerServiceImpl implements ShortnerService {
             repository.delete(shortner);
         });
 
+        logger.info("Deleting ShortCode: {}", shortCode);
         return shortnerUrlEntity.isPresent();
     }
 
