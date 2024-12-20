@@ -28,7 +28,7 @@ public class ShortnerServiceImpl implements ShortnerService {
     }
 
     @Override
-    public Optional<ShortnerUrlEntity> findUrl(String shortCode) {
+    public Optional<ShortnerUrlEntity> getUrl(String shortCode) {
         Optional<ShortnerUrlEntity> shortnerUrlEntity = Optional.ofNullable(repository.findByShortCode(shortCode));
 
         shortnerUrlEntity.ifPresent(shortner -> {
@@ -48,7 +48,7 @@ public class ShortnerServiceImpl implements ShortnerService {
 
     @Override
     public Optional<ShortnerUrlEntity> changeUrl(String shortCode, String url) {
-        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.findUrl(shortCode); // optional
+        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.getUrl(shortCode); // optional
 
         shortnerUrlEntity.ifPresent(shortner -> {
             shortner.updateUrl(url);
@@ -61,7 +61,7 @@ public class ShortnerServiceImpl implements ShortnerService {
 
     @Override
     public boolean deleteUrl(String shortCode) {
-        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.findUrl(shortCode); // optional
+        Optional<ShortnerUrlEntity> shortnerUrlEntity = this.getUrl(shortCode); // optional
 
         shortnerUrlEntity.ifPresent(shortner -> {
             repository.delete(shortner);

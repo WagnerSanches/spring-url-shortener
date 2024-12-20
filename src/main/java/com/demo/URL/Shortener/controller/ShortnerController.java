@@ -38,8 +38,8 @@ public class ShortnerController {
     }
 
     @GetMapping("{shortCode}")
-    public ResponseEntity<ShortnerUrlEntity> findUrl(@PathVariable String shortCode) {
-        return service.findUrl(shortCode)
+    public ResponseEntity<ShortnerUrlEntity> getUrl(@PathVariable String shortCode) {
+        return service.getUrl(shortCode)
                 .map(ResponseEntity::ok)
                 .orElseThrow(URLNotFoundException::new);
     }

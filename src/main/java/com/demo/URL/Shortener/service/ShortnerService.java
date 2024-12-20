@@ -10,7 +10,7 @@ public interface ShortnerService {
 
     List<ShortnerUrlEntity> getUrls();
     ShortnerUrlEntity createUrl(ShortnerUrlDto shortnerUrlDto);
-    Optional<ShortnerUrlEntity> findUrl(String shortCode);
+    Optional<ShortnerUrlEntity> getUrl(String shortCode);
     Optional<ShortnerUrlEntity> changeUrl(String shortCode, String url);
     boolean deleteUrl(String shortCode);
 }
