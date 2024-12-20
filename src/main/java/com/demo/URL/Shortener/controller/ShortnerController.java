@@ -13,7 +13,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 // junit
-// seguranca (handler)
 // docker compose
 
 @RestController

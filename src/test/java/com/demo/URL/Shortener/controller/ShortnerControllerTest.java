@@ -107,9 +107,18 @@ public class ShortnerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andDo(print())
-                .andExpect(status().isOk());
-
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.shortCode", is(shortCode)));
     }
 
+    @Order(4)
+    @Test
+    public void changeUrl() {
+        System.out.println("------------------- ShortnerControllerTest.getUrls() ------------------");
+        String newUrl = "localhost:3333";
+        this.shortnerUrlEntity.updateUrl(newUrl);
+        given(this.shortnerService.changeUrl(shortCode, newUrl)).willReturn(Optional.of(this.shortnerUrlEntity));
+
+    }
 
 }
