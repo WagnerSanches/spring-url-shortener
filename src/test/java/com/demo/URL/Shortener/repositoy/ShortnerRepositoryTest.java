@@ -23,7 +23,6 @@ public class ShortnerRepositoryTest {
 
     @Autowired
     private ShortnerRepository repository;
-
     private ShortnerUrlEntity shortnerUrlEntity;
     private final String URL = "localhost:8080/teste";
 
@@ -42,7 +41,7 @@ public class ShortnerRepositoryTest {
     @Order(1)
     @Rollback(value = false)
     public void saveUrl() {
-        System.out.println("------------------- saveUrl() ------------------");
+        System.out.println("------------------- ShortnerRepositoryTest.saveUrl() ------------------");
 
         repository.save(this.shortnerUrlEntity);
 
@@ -53,7 +52,7 @@ public class ShortnerRepositoryTest {
     @Test
     @Order(2)
     public void getAllUrls() {
-        System.out.println("------------------- getAllUrls() ------------------");
+        System.out.println("------------------- ShortnerRepositoryTest.getAllUrls() ------------------");
         System.out.println(this.shortnerUrlEntity);
         List<ShortnerUrlEntity> urls = repository.findAll();
 
@@ -66,7 +65,7 @@ public class ShortnerRepositoryTest {
     @Test
     @Order(3)
     public void getUrl() {
-        System.out.println("------------------- getUrl() ------------------");
+        System.out.println("------------------- ShortnerRepositoryTest.getUrl() ------------------");
         Optional<ShortnerUrlEntity> url = Optional.ofNullable(
                 repository.findByShortCode(this.shortnerUrlEntity.getShortCode())
         );
@@ -77,7 +76,7 @@ public class ShortnerRepositoryTest {
     @Test
     @Order(4)
     public void updateUrl() {
-        System.out.println("------------------- updateUrl() ------------------");
+        System.out.println("------------------- ShortnerRepositoryTest.updateUrl() ------------------");
 
         Optional<ShortnerUrlEntity> url = Optional.ofNullable(
                 repository.findByShortCode(this.shortnerUrlEntity.getShortCode())
@@ -115,7 +114,7 @@ public class ShortnerRepositoryTest {
     @Order(5)
     @Rollback(value = false)
     public void deleteUrl() {
-        System.out.println("------------------- deleteUrl() ------------------");
+        System.out.println("------------------- ShortnerRepositoryTest.deleteUrl() ------------------");
         System.out.println(this.shortnerUrlEntity);
         repository.delete(shortnerUrlEntity);
 
