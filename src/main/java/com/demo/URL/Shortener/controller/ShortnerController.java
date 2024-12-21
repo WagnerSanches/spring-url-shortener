@@ -1,8 +1,8 @@
 package com.demo.URL.Shortener.controller;
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
-import com.demo.URL.Shortener.exceptions.URLNotFoundException;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
+import com.demo.URL.Shortener.exception.URLNotFoundException;
 import com.demo.URL.Shortener.service.ShortnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

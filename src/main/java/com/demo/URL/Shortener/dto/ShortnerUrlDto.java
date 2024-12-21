@@ -1,4 +1,4 @@
-package com.demo.URL.Shortener.dtos;
+package com.demo.URL.Shortener.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

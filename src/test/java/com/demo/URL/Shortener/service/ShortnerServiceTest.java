@@ -1,7 +1,7 @@
 package com.demo.URL.Shortener.service;
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
 import com.demo.URL.Shortener.repository.ShortnerRepository;
 import com.demo.URL.Shortener.service.impl.ShortnerServiceImpl;
 import org.junit.jupiter.api.*;
@@ -10,8 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.Assert;
 

@@ -1,7 +1,7 @@
 package com.demo.URL.Shortener.controller;
 
-import com.demo.URL.Shortener.dtos.ErrorResponseDTO;
-import com.demo.URL.Shortener.exceptions.URLNotFoundException;
+import com.demo.URL.Shortener.dto.ErrorResponseDTO;
+import com.demo.URL.Shortener.exception.URLNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

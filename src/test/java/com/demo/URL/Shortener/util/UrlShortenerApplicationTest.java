@@ -1,4 +1,4 @@
-package com.demo.URL.Shortener.utils;
+package com.demo.URL.Shortener.util;
 
 
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,9 @@
 package com.demo.URL.Shortener.controller;
 
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
 import com.demo.URL.Shortener.service.ShortnerService;
-import com.demo.URL.Shortener.utils.ShortCodeGeneratorUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 
@@ -17,8 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import javax.swing.text.html.Option;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;

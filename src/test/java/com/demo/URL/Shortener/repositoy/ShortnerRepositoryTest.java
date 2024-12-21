@@ -1,8 +1,8 @@
 package com.demo.URL.Shortener.repositoy;
 
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
 import com.demo.URL.Shortener.repository.ShortnerRepository;
-import com.demo.URL.Shortener.utils.ShortCodeGeneratorUtil;
+import com.demo.URL.Shortener.util.ShortCodeGeneratorUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

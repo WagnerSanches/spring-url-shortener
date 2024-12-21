@@ -1,7 +1,7 @@
-package com.demo.URL.Shortener.entities;
+package com.demo.URL.Shortener.entity;
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.utils.ShortCodeGeneratorUtil;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.util.ShortCodeGeneratorUtil;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;

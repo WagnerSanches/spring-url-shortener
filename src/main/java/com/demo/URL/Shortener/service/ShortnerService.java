@@ -1,7 +1,7 @@
 package com.demo.URL.Shortener.service;
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
 
 import java.util.List;
 import java.util.Optional;

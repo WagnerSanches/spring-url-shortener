@@ -1,13 +1,12 @@
 package com.demo.URL.Shortener.service.impl;
 
-import com.demo.URL.Shortener.dtos.ShortnerUrlDto;
-import com.demo.URL.Shortener.entities.ShortnerUrlEntity;
+import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
 import com.demo.URL.Shortener.repository.ShortnerRepository;
 import com.demo.URL.Shortener.service.ShortnerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
