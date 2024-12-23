@@ -17,7 +17,7 @@ public class ShortnerExceptionController {
     Logger logger = LoggerFactory.getLogger(ShortnerExceptionController.class);
 
     @ExceptionHandler(URLNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> urlNotFoundException(URLNotFoundException URLNotFoundException) {
+    public ResponseEntity<ErrorResponseDTO> urlNotFoundException() {
         logger.error("URLNotFoundException: ShortCode does not exist!");
         return new ResponseEntity<>(ErrorResponseDTO.builder()
                 .code(HttpStatus.NOT_FOUND.value())
