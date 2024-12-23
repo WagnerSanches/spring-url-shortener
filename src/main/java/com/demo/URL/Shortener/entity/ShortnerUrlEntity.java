@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @DynamicUpdate
 public class ShortnerUrlEntity {
