@@ -12,8 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-// docker compose
-
 @RestController
 @RequestMapping("url-shortner")
 public class ShortnerController {
