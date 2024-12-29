@@ -17,8 +17,11 @@ public class ShortnerServiceImpl implements ShortnerService {
 
     Logger logger = LoggerFactory.getLogger(ShortnerServiceImpl.class);
 
-    @Autowired
-    private ShortnerRepository repository;
+    private final ShortnerRepository repository;
+
+    public ShortnerServiceImpl(ShortnerRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<ShortnerUrlEntity> getUrls() {

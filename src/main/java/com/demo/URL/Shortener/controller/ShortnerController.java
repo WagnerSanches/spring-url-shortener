@@ -16,8 +16,11 @@ import java.util.List;
 @RequestMapping("url-shortner")
 public class ShortnerController {
 
-    @Autowired
-    private ShortnerService service;
+    private final ShortnerService service;
+
+    public ShortnerController(ShortnerService service) {
+        this.service = service;
+    }
 
     @GetMapping()
     public ResponseEntity<List<ShortnerUrlEntity>> getUrls() {
