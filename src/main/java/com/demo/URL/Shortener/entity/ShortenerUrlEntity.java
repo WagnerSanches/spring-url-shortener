@@ -1,6 +1,6 @@
 package com.demo.URL.Shortener.entity;
 
-import com.demo.URL.Shortener.dto.ShortnerUrlDto;
+import com.demo.URL.Shortener.dto.ShortenerUrlDto;
 import com.demo.URL.Shortener.util.ShortCodeGeneratorUtil;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @DynamicUpdate
-public class ShortnerUrlEntity {
+public class ShortenerUrlEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long shortnerUrlId;
+    private Long shortenerUrlId;
     private String url;
 
     @Column(unique = true)
@@ -30,9 +30,9 @@ public class ShortnerUrlEntity {
 
     private Integer accessCount;
 
-    public static ShortnerUrlEntity of(ShortnerUrlDto shortnerUrlDto) {
-        return ShortnerUrlEntity.builder()
-                .url(shortnerUrlDto.getUrl())
+    public static ShortenerUrlEntity of(ShortenerUrlDto shortenerUrlDto) {
+        return ShortenerUrlEntity.builder()
+                .url(shortenerUrlDto.getUrl())
                 .shortCode(ShortCodeGeneratorUtil.generate())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

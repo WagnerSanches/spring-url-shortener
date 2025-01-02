@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShortnerUrlDto {
+public class ShortenerUrlDto {
     private String url;
 }

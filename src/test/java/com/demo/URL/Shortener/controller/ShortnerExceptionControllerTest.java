@@ -1,7 +1,7 @@
 package com.demo.URL.Shortener.controller;
 
 import com.demo.URL.Shortener.exception.URLNotFoundException;
-import com.demo.URL.Shortener.service.ShortnerService;
+import com.demo.URL.Shortener.service.ShortenerService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {ShortnerController.class, ShortnerExceptionController.class})
+@WebMvcTest(controllers = {ShortenerController.class, ShortenerExceptionController.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShortnerExceptionControllerTest {
@@ -30,7 +30,7 @@ public class ShortnerExceptionControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private ShortnerService shortnerService;
+    private ShortenerService shortnerService;
 
     @Test
     public void urlNotFoundException() throws Exception {

@@ -1,9 +1,9 @@
 package com.demo.URL.Shortener.controller;
 
 
-import com.demo.URL.Shortener.dto.ShortnerUrlDto;
-import com.demo.URL.Shortener.entity.ShortnerUrlEntity;
-import com.demo.URL.Shortener.service.ShortnerService;
+import com.demo.URL.Shortener.dto.ShortenerUrlDto;
+import com.demo.URL.Shortener.entity.ShortenerUrlEntity;
+import com.demo.URL.Shortener.service.ShortenerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@WebMvcTest(ShortnerController.class)
+@WebMvcTest(ShortenerController.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShortnerControllerTest {
@@ -36,22 +36,22 @@ public class ShortnerControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private ShortnerService shortnerService;
+    private ShortenerService shortnerService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     private String URL;
     private String shortCode;
-    private ShortnerUrlEntity shortnerUrlEntity;
+    private ShortenerUrlEntity shortenerUrlEntity;
 
     @BeforeAll
     public void setup() {
         URL = "localhost:8080/teste";
         shortCode = "abc1";
 
-        this.shortnerUrlEntity = ShortnerUrlEntity.builder()
-                .shortnerUrlId(1L)
+        this.shortenerUrlEntity = ShortenerUrlEntity.builder()
+                .shortenerUrlId(1L)
                 .url(URL)
                 .shortCode(shortCode)
                 .createdAt(LocalDateTime.now())
@@ -64,7 +64,7 @@ public class ShortnerControllerTest {
     @Test
     public void getUrls() throws Exception {
         System.out.println("------------------- ShortnerControllerTest.getUrls() ------------------");
-        List<ShortnerUrlEntity> shortnerUrlEntities = List.of(this.shortnerUrlEntity);
+        List<ShortenerUrlEntity> shortnerUrlEntities = List.of(this.shortenerUrlEntity);
 
         given(this.shortnerService.getUrls()).willReturn(shortnerUrlEntities);
 
@@ -81,9 +81,9 @@ public class ShortnerControllerTest {
     @Test
     public void createUrl() throws Exception {
         System.out.println("------------------- ShortnerControllerTest.createUrl() ------------------");
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto(URL);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(URL);
 
-        given(this.shortnerService.createUrl(any(ShortnerUrlDto.class))).willReturn(this.shortnerUrlEntity);
+        given(this.shortnerService.createUrl(any(ShortenerUrlDto.class))).willReturn(this.shortenerUrlEntity);
 
         ResultActions response = this.mockMvc.perform(post("/url-shortner")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class ShortnerControllerTest {
     @Test
     public void findUrl() throws Exception {
         System.out.println("------------------- ShortnerControllerTest.findUrl() ------------------");
-        given(this.shortnerService.getUrl(this.shortCode)).willReturn(Optional.of(this.shortnerUrlEntity));
+        given(this.shortnerService.getUrl(this.shortCode)).willReturn(Optional.of(this.shortenerUrlEntity));
 
         ResultActions response = this.mockMvc.perform(get("/url-shortner/{shortCode}", this.shortCode)
                 .contentType(MediaType.APPLICATION_JSON));
@@ -113,10 +113,10 @@ public class ShortnerControllerTest {
     public void changeUrl() throws Exception {
         System.out.println("------------------- ShortnerControllerTest.changeUrl() ------------------");
         String newUrl = "localhost:3333";
-        this.shortnerUrlEntity.updateUrl(newUrl);
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto(newUrl);
+        this.shortenerUrlEntity.updateUrl(newUrl);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(newUrl);
 
-        given(this.shortnerService.changeUrl(shortCode, newUrl)).willReturn(Optional.of(this.shortnerUrlEntity));
+        given(this.shortnerService.changeUrl(shortCode, newUrl)).willReturn(Optional.of(this.shortenerUrlEntity));
         ResultActions response = this.mockMvc.perform(patch("/url-shortner/{shortCode}", this.shortCode)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(shortnerUrlDto)));

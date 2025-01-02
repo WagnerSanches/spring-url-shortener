@@ -9,14 +9,14 @@ public class ShortnerUrlDtoTest {
     @Test
     public void shortnerUrlDtoTest_allArgs() {
         String url = "localhost";
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto(url);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(url);
 
         assertThat(shortnerUrlDto.getUrl()).isEqualTo(url);
     }
 
     @Test
     public void shortnerUrlDtoTest_noArgs() {
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto();
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto();
 
         assertThat(shortnerUrlDto).isNotNull();
     }

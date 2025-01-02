@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class ShortnerExceptionController {
+public class ShortenerExceptionController {
 
-    Logger logger = LoggerFactory.getLogger(ShortnerExceptionController.class);
+    Logger logger = LoggerFactory.getLogger(ShortenerExceptionController.class);
 
     @ExceptionHandler(URLNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO> urlNotFoundException() {

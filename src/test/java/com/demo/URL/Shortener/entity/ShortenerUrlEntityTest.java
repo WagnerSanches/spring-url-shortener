@@ -1,19 +1,18 @@
 package com.demo.URL.Shortener.entity;
 
-import com.demo.URL.Shortener.dto.ShortnerUrlDto;
-import com.demo.URL.Shortener.util.ShortCodeGeneratorUtil;
+import com.demo.URL.Shortener.dto.ShortenerUrlDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ShortnerUrlEntityTest {
+public class ShortenerUrlEntityTest {
 
     @Test
     public void shortnerUrlEntity_NoArgsConstructor() {
-        ShortnerUrlEntity shortnerUrlEntity = new ShortnerUrlEntity();
-        assertThat(shortnerUrlEntity).isNotNull();
+        ShortenerUrlEntity shortenerUrlEntity = new ShortenerUrlEntity();
+        assertThat(shortenerUrlEntity).isNotNull();
     }
 
     @Test
@@ -21,7 +20,7 @@ public class ShortnerUrlEntityTest {
         String url = "locahost";
         String shortcode = "a123";
 
-        ShortnerUrlEntity shortnerUrlEntity = ShortnerUrlEntity.builder()
+        ShortenerUrlEntity shortenerUrlEntity = ShortenerUrlEntity.builder()
                 .url(url)
                 .shortCode(shortcode)
                 .createdAt(LocalDateTime.now())
@@ -29,15 +28,15 @@ public class ShortnerUrlEntityTest {
                 .accessCount(0)
                 .build();
 
-        assertThat(shortnerUrlEntity.getUrl()).isEqualTo(url);
-        assertThat(shortnerUrlEntity.getShortCode()).isEqualTo(shortcode);
+        assertThat(shortenerUrlEntity.getUrl()).isEqualTo(url);
+        assertThat(shortenerUrlEntity.getShortCode()).isEqualTo(shortcode);
     }
 
     @Test
     public void shortnerUrlEntity_of() {
         String url = "localhost";
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto(url);
-        ShortnerUrlEntity shortnerUrl = ShortnerUrlEntity.of(shortnerUrlDto);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(url);
+        ShortenerUrlEntity shortnerUrl = ShortenerUrlEntity.of(shortnerUrlDto);
 
         assertThat(shortnerUrl).isNotNull();
         assertThat(shortnerUrl.getUrl()).isEqualTo(url);
@@ -46,8 +45,8 @@ public class ShortnerUrlEntityTest {
     @Test
     public void shortnerUrlEntity_updateUrl() {
         String url = "localhost";
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto(url);
-        ShortnerUrlEntity shortnerUrl = ShortnerUrlEntity.of(shortnerUrlDto);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(url);
+        ShortenerUrlEntity shortnerUrl = ShortenerUrlEntity.of(shortnerUrlDto);
 
         String newurl = "localhost:10";
         shortnerUrl.updateUrl(newurl);
@@ -59,8 +58,8 @@ public class ShortnerUrlEntityTest {
 
     @Test
     public void shortnerUrlEntity_incrementAccessCount() {
-        ShortnerUrlDto shortnerUrlDto = new ShortnerUrlDto("locahost");
-        ShortnerUrlEntity shortnerUrl = ShortnerUrlEntity.of(shortnerUrlDto);
+        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto("locahost");
+        ShortenerUrlEntity shortnerUrl = ShortenerUrlEntity.of(shortnerUrlDto);
 
         assertThat(shortnerUrl).isNotNull();
         assertThat(shortnerUrl.getAccessCount()).isEqualTo(0);
