@@ -30,13 +30,13 @@ import java.util.Optional;
 @WebMvcTest(ShortenerController.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ShortnerControllerTest {
+public class ShortenerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private ShortenerService shortnerService;
+    private ShortenerService shortenerService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -63,31 +63,31 @@ public class ShortnerControllerTest {
     @Order(1)
     @Test
     public void getUrls() throws Exception {
-        System.out.println("------------------- ShortnerControllerTest.getUrls() ------------------");
-        List<ShortenerUrlEntity> shortnerUrlEntities = List.of(this.shortenerUrlEntity);
+        System.out.println("------------------- ShortenerControllerTest.getUrls() ------------------");
+        List<ShortenerUrlEntity> shortenerUrlEntities = List.of(this.shortenerUrlEntity);
 
-        given(this.shortnerService.getUrls()).willReturn(shortnerUrlEntities);
+        given(this.shortenerService.getUrls()).willReturn(shortenerUrlEntities);
 
-        ResultActions response = this.mockMvc.perform(get("/url-shortner")
+        ResultActions response = this.mockMvc.perform(get("/url-shortener")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(shortnerUrlEntities.size())));
+                .andExpect(jsonPath("$", hasSize(shortenerUrlEntities.size())));
 
     }
 
     @Order(2)
     @Test
     public void createUrl() throws Exception {
-        System.out.println("------------------- ShortnerControllerTest.createUrl() ------------------");
-        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(URL);
+        System.out.println("------------------- ShortenerControllerTest.createUrl() ------------------");
+        ShortenerUrlDto shortenerUrlDto = new ShortenerUrlDto(URL);
 
-        given(this.shortnerService.createUrl(any(ShortenerUrlDto.class))).willReturn(this.shortenerUrlEntity);
+        given(this.shortenerService.createUrl(any(ShortenerUrlDto.class))).willReturn(this.shortenerUrlEntity);
 
-        ResultActions response = this.mockMvc.perform(post("/url-shortner")
+        ResultActions response = this.mockMvc.perform(post("/url-shortener")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(shortnerUrlDto)));
+                .content(this.objectMapper.writeValueAsString(shortenerUrlDto)));
 
         response.andDo(print())
                 .andExpect(status().isCreated())
@@ -97,10 +97,10 @@ public class ShortnerControllerTest {
     @Order(3)
     @Test
     public void findUrl() throws Exception {
-        System.out.println("------------------- ShortnerControllerTest.findUrl() ------------------");
-        given(this.shortnerService.getUrl(this.shortCode)).willReturn(Optional.of(this.shortenerUrlEntity));
+        System.out.println("------------------- ShortenerControllerTest.findUrl() ------------------");
+        given(this.shortenerService.getUrl(this.shortCode)).willReturn(Optional.of(this.shortenerUrlEntity));
 
-        ResultActions response = this.mockMvc.perform(get("/url-shortner/{shortCode}", this.shortCode)
+        ResultActions response = this.mockMvc.perform(get("/url-shortener/{shortCode}", this.shortCode)
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andDo(print())
@@ -111,15 +111,15 @@ public class ShortnerControllerTest {
     @Order(4)
     @Test
     public void changeUrl() throws Exception {
-        System.out.println("------------------- ShortnerControllerTest.changeUrl() ------------------");
+        System.out.println("------------------- ShortenerControllerTest.changeUrl() ------------------");
         String newUrl = "localhost:3333";
         this.shortenerUrlEntity.updateUrl(newUrl);
-        ShortenerUrlDto shortnerUrlDto = new ShortenerUrlDto(newUrl);
+        ShortenerUrlDto shortenerUrlDto = new ShortenerUrlDto(newUrl);
 
-        given(this.shortnerService.changeUrl(shortCode, newUrl)).willReturn(Optional.of(this.shortenerUrlEntity));
-        ResultActions response = this.mockMvc.perform(patch("/url-shortner/{shortCode}", this.shortCode)
+        given(this.shortenerService.changeUrl(shortCode, newUrl)).willReturn(Optional.of(this.shortenerUrlEntity));
+        ResultActions response = this.mockMvc.perform(patch("/url-shortener/{shortCode}", this.shortCode)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(shortnerUrlDto)));
+                .content(this.objectMapper.writeValueAsString(shortenerUrlDto)));
 
         response.andDo(print())
                 .andExpect(status().isOk())
@@ -129,10 +129,10 @@ public class ShortnerControllerTest {
     @Order(5)
     @Test
     public void deleteUrl() throws Exception {
-        System.out.println("------------------- ShortnerControllerTest.deleteUrl() ------------------");
-        given(this.shortnerService.deleteUrl(this.shortCode)).willReturn(true);
+        System.out.println("------------------- ShortenerControllerTest.deleteUrl() ------------------");
+        given(this.shortenerService.deleteUrl(this.shortCode)).willReturn(true);
 
-        ResultActions response = this.mockMvc.perform(delete("/url-shortner/{shortCode}", this.shortCode));
+        ResultActions response = this.mockMvc.perform(delete("/url-shortener/{shortCode}", this.shortCode));
 
         response.andExpect(status().isNoContent())
                 .andDo(print());

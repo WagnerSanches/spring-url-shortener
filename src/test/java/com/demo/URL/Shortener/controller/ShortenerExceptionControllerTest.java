@@ -24,18 +24,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = {ShortenerController.class, ShortenerExceptionController.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ShortnerExceptionControllerTest {
+public class ShortenerExceptionControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private ShortenerService shortnerService;
+    private ShortenerService shortenerService;
 
     @Test
     public void urlNotFoundException() throws Exception {
-        given(this.shortnerService.getUrl(any(String.class))).willThrow(URLNotFoundException.class);
-        ResultActions result = this.mockMvc.perform(get("/url-shortner/123")
+        given(this.shortenerService.getUrl(any(String.class))).willThrow(URLNotFoundException.class);
+        ResultActions result = this.mockMvc.perform(get("/url-shortener/123")
                 .contentType(MediaType.APPLICATION_JSON));
 
         result.andDo(print())
@@ -45,9 +45,9 @@ public class ShortnerExceptionControllerTest {
 
     @Test
     public void exceptionTest() throws Exception {
-        given(this.shortnerService.getUrl(any(String.class))).willThrow(RuntimeException.class);
+        given(this.shortenerService.getUrl(any(String.class))).willThrow(RuntimeException.class);
 
-        ResultActions result = this.mockMvc.perform(get("/url-shortner/123")
+        ResultActions result = this.mockMvc.perform(get("/url-shortener/123")
                 .contentType(MediaType.APPLICATION_JSON));
 
         result.andDo(print())

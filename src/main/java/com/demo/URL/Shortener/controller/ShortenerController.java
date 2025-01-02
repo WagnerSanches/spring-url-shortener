@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("url-shortner")
+@RequestMapping("url-shortener")
 public class ShortenerController {
 
     private final ShortenerService service;
@@ -27,10 +27,10 @@ public class ShortenerController {
     }
 
     @PostMapping()
-    public ResponseEntity<ShortenerUrlEntity> createUrl(@RequestBody ShortenerUrlDto shortnerUrlDto) throws URISyntaxException {
-        ShortenerUrlEntity shortenerUrlEntity = service.createUrl(shortnerUrlDto);
+    public ResponseEntity<ShortenerUrlEntity> createUrl(@RequestBody ShortenerUrlDto shortenerUrlDto) throws URISyntaxException {
+        ShortenerUrlEntity shortenerUrlEntity = service.createUrl(shortenerUrlDto);
 
-        return ResponseEntity.created(new URI("/url-shortner/" + shortenerUrlEntity.getShortCode())).body(shortenerUrlEntity);
+        return ResponseEntity.created(new URI("/url-shortener/" + shortenerUrlEntity.getShortCode())).body(shortenerUrlEntity);
     }
 
     @GetMapping("{shortCode}")
@@ -39,9 +39,8 @@ public class ShortenerController {
     }
 
     @PatchMapping("{shortCode}")
-    public ResponseEntity<ShortenerUrlEntity> changeUrl(@PathVariable String shortCode, @RequestBody ShortenerUrlDto shortnerUrlDto) {
-
-        return service.changeUrl(shortCode, shortnerUrlDto.getUrl()).map(ResponseEntity::ok).orElseThrow(URLNotFoundException::new);
+    public ResponseEntity<ShortenerUrlEntity> changeUrl(@PathVariable String shortCode, @RequestBody ShortenerUrlDto shortenerUrlDto) {
+        return service.changeUrl(shortCode, shortenerUrlDto.getUrl()).map(ResponseEntity::ok).orElseThrow(URLNotFoundException::new);
     }
 
     @DeleteMapping("{shortCode}")

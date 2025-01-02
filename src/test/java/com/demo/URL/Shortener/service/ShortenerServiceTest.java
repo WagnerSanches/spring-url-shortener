@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ShortnerServiceTest {
+public class ShortenerServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,17 +32,17 @@ public class ShortnerServiceTest {
     private ShortenerRepository repository;
 
     @InjectMocks
-    private ShortenerServiceImpl shortnerService;
+    private ShortenerServiceImpl shortenerService;
 
     private String shortCode;
-    private ShortenerUrlDto shortnerUrlDto;
+    private ShortenerUrlDto shortenerUrlDto;
     private ShortenerUrlEntity shortenerUrlEntity;
 
     @BeforeAll
     public void setup() {
         String url = "localhost:8080";
         this.shortCode = "abc1";
-        this.shortnerUrlDto = new ShortenerUrlDto(url);
+        this.shortenerUrlDto = new ShortenerUrlDto(url);
         this.shortenerUrlEntity = ShortenerUrlEntity.builder()
                 .shortenerUrlId(1L)
                 .url(url)
@@ -57,10 +57,10 @@ public class ShortnerServiceTest {
     @Test
     public void getUrls() {
         given(repository.findAll()).willReturn(List.of(this.shortenerUrlEntity));
-        List<ShortenerUrlEntity> shortnerUrlEntities = this.shortnerService.getUrls();
+        List<ShortenerUrlEntity> shortenerUrlEntities = this.shortenerService.getUrls();
 
-        assertThat(shortnerUrlEntities).isNotEmpty();
-        assertThat(shortnerUrlEntities.size()).isGreaterThan(0);
+        assertThat(shortenerUrlEntities).isNotEmpty();
+        assertThat(shortenerUrlEntities.size()).isGreaterThan(0);
     }
 
 
@@ -68,7 +68,7 @@ public class ShortnerServiceTest {
     @Test
     public void createUrl() {
         given(repository.save(any(ShortenerUrlEntity.class))).willReturn(this.shortenerUrlEntity);
-        ShortenerUrlEntity shortenerUrlEntity1 = this.shortnerService.createUrl(this.shortnerUrlDto);
+        ShortenerUrlEntity shortenerUrlEntity1 = this.shortenerService.createUrl(this.shortenerUrlDto);
 
         assertThat(shortenerUrlEntity1).isNotNull();
     }
@@ -77,9 +77,9 @@ public class ShortnerServiceTest {
     @Test
     public void getUrl() {
         given(repository.findByShortCode(this.shortenerUrlEntity.getShortCode())).willReturn(this.shortenerUrlEntity);
-        Optional<ShortenerUrlEntity> shortnerUrlEntity1 = this.shortnerService.getUrl(this.shortenerUrlEntity.getShortCode());
+        Optional<ShortenerUrlEntity> shortenerUrlEntity1 = this.shortenerService.getUrl(this.shortenerUrlEntity.getShortCode());
 
-        assertThat(shortnerUrlEntity1).isPresent();
+        assertThat(shortenerUrlEntity1).isPresent();
     }
 
     @Order(4)
@@ -90,9 +90,9 @@ public class ShortnerServiceTest {
         this.shortenerUrlEntity.updateUrl("localhost:1234");
         given(repository.save(this.shortenerUrlEntity)).willReturn(this.shortenerUrlEntity);
 
-        Optional<ShortenerUrlEntity> shortnerUrlEntity1 = this.shortnerService.changeUrl(this.shortCode, "localhost:1234");
+        Optional<ShortenerUrlEntity> shortenerUrlEntity1 = this.shortenerService.changeUrl(this.shortCode, "localhost:1234");
 
-        assertThat(shortnerUrlEntity1).isPresent();
+        assertThat(shortenerUrlEntity1).isPresent();
     }
 
     @Order(5)
@@ -101,7 +101,7 @@ public class ShortnerServiceTest {
         given(repository.findByShortCode(this.shortenerUrlEntity.getShortCode())).willReturn(this.shortenerUrlEntity);
         willDoNothing().given(repository).delete(this.shortenerUrlEntity);
 
-        boolean result = this.shortnerService.deleteUrl(this.shortenerUrlEntity.getShortCode());
+        boolean result = this.shortenerService.deleteUrl(this.shortenerUrlEntity.getShortCode());
         Assert.isTrue(result, "Entity was not deleted!");
     }
 
