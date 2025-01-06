@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,10 +20,10 @@ import java.util.Optional;
 
 import static org.mockito.BDDMockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.util.Assert.isTrue;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShortenerServiceTest {
 
     @Autowired
@@ -38,8 +39,9 @@ public class ShortenerServiceTest {
     private ShortenerUrlDto shortenerUrlDto;
     private ShortenerUrlEntity shortenerUrlEntity;
 
-    @BeforeAll
-    public void setup() {
+    @BeforeEach
+    public void reset() {
+        Mockito.reset(repository);
         String url = "localhost:8080";
         this.shortCode = "abc1";
         this.shortenerUrlDto = new ShortenerUrlDto(url);
@@ -63,13 +65,13 @@ public class ShortenerServiceTest {
         assertThat(shortenerUrlEntities.size()).isGreaterThan(0);
     }
 
-
     @Order(2)
     @Test
     public void createUrl() {
         given(repository.save(any(ShortenerUrlEntity.class))).willReturn(this.shortenerUrlEntity);
         ShortenerUrlEntity shortenerUrlEntity1 = this.shortenerService.createUrl(this.shortenerUrlDto);
 
+        System.out.println(shortenerUrlEntity1 == null);
         assertThat(shortenerUrlEntity1).isNotNull();
     }
 
@@ -102,7 +104,6 @@ public class ShortenerServiceTest {
         willDoNothing().given(repository).delete(this.shortenerUrlEntity);
 
         boolean result = this.shortenerService.deleteUrl(this.shortenerUrlEntity.getShortCode());
-        Assert.isTrue(result, "Entity was not deleted!");
+        isTrue(result, "Entity was not deleted!");
     }
-
 }
