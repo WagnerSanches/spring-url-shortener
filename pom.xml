@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.demo</groupId>
 	<artifactId>URL-Shortener</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>URL-Shortener</name>
 	<description>URL Shortener project</description>
 	<url/>
